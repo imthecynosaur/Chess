@@ -69,21 +69,20 @@ public class Controller {
     }
 
     public void removeUser(String userName, String passWord) {
+        outer:
         if (checkFormat(userName) && checkFormat(passWord)) {
-            Boolean hasMatched = false;
             for (User user : users) {
-                if (user.getUserName().equals(userName)) {
-                    hasMatched = true;
+                if (doesUserExists(userName)) {
                     if (checkPassWord(userName, passWord)) {
                         users.remove(user);
                         System.out.println("user successfully removed.");
-                        break;
+                        break outer;
                     } else {
                         System.out.println("password incorrect.");
                     }
                 }
             }
-            if (!(hasMatched)) {
+            if (!(doesUserExists(userName))) {
                 System.out.println("no user found with this username.");
             }
         }
