@@ -60,7 +60,12 @@ public class Login extends Menu {
 
 
         } else if (input.trim().toLowerCase().startsWith("login")){
-
+            try {
+                controller.login(input.split("\\s+")[1], input.split("\\s+")[2]);
+            } catch(Exception e) {
+                System.out.println("missing an argument");
+                this.execute();
+            }
 
         } else {
             System.out.println("Invalid command!");
