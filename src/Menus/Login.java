@@ -1,17 +1,14 @@
 package Menus;
 
-import Controller.Controller;
-import Model.User;
 
 import java.util.Scanner;
 
 public class Login extends Menu {
-    Controller controller;
+
 
     public Login(Menu parentMenu) {
         super("Login", null);
         this.setSubMenu(new MainMenu(this));
-        controller = new Controller();
     }
 
     @Override
@@ -28,6 +25,7 @@ public class Login extends Menu {
     public void execute() {
         String input = scanner.nextLine();
         if (input.trim().toLowerCase().startsWith("exit")){
+            System.out.println("Program ended.");
             System.exit(1);
 
         } else if (input.trim().toLowerCase().startsWith("help")){
@@ -44,10 +42,8 @@ public class Login extends Menu {
 
 
 
-        } else if (input.trim().toLowerCase().startsWith("list")){
-            for (User user : controller.getUsers()) {
-                System.out.println(user.getUserName());
-            }
+        } else if (input.trim().toLowerCase().startsWith("list")) {
+            controller.getUserlist();
 
 
         } else if (input.trim().toLowerCase().startsWith("remove")){
@@ -62,6 +58,7 @@ public class Login extends Menu {
         } else if (input.trim().toLowerCase().startsWith("login")){
             try {
                 controller.login(input.split("\\s+")[1], input.split("\\s+")[2]);
+                this.subMenu.execute();
             } catch(Exception e) {
                 System.out.println("missing an argument");
                 this.execute();

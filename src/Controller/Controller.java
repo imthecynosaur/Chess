@@ -18,6 +18,12 @@ public class Controller {
         return users;
     }
 
+    public void getUserlist(){
+        for (User user : users) {
+            System.out.println(user.getUserName());
+        }
+    }
+
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
