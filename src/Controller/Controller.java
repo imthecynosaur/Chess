@@ -25,19 +25,35 @@ public class Controller {
         return isCorrectFormat;
     }
 
+    public Boolean doesUserExists(String userName){
+        Boolean userExists = false;
+        for (User user : getUsers()) {
+            if (user.getUserName().equals(userName)){
+                userExists = true;
+                break;
+            }
+        }
+        return userExists;
+    }
+
 
     public void register(String userName, String passWord){
         if (checkFormat(userName) && checkFormat(passWord)){
-            users.add(new User(userName, passWord));
-            System.out.println("register successful.");
-        }
+            if (!doesUserExists(userName)){
+                for (User user : getUsers()) {
+                    if (user.getUserName().equals(userName)){
 
+                    }
+                }
+                users.add(new User(userName, passWord));
+                System.out.println("register successful.");
+            } else {
+                System.out.println("User Already exists!");
+            }
+        }
     }
 
     public ArrayList<User> getUsers() {
-        if (users.isEmpty()){
-            System.out.println("There is currently no user registered.");
-        }
         return users;
     }
 
