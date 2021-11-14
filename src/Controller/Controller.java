@@ -1,0 +1,79 @@
+package Controller;
+
+import Model.User;
+
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Controller {
+    private ArrayList<User> users;
+
+    public Controller(){
+        users = new ArrayList<>();
+    }
+
+    public Boolean checkFormat(String input){
+        String patternString = "[^a-zA-Z0-9_]";
+        Pattern pattern = Pattern.compile(patternString);
+        Matcher matcher = pattern.matcher(input);
+        Boolean isCorrectFormat = true;
+        if (matcher.find()){
+            isCorrectFormat = false;
+            System.out.println("Username or password format is invalid!");
+        }
+        return isCorrectFormat;
+    }
+
+
+    public void register(String userName, String passWord){
+        if (checkFormat(userName) && checkFormat(passWord)){
+            users.add(new User(userName, passWord));
+            System.out.println("register successful.");
+        }
+
+    }
+
+    public ArrayList<User> getUsers() {
+        if (users.isEmpty()){
+            System.out.println("There is currently no user registered.");
+        }
+        return users;
+    }
+
+    public Boolean checkPassWord(String userName, String passWord){
+        for (User user : getUsers()) {
+            if (user.getUserName().equals(userName)){
+                if (user.getPassWord().equals(passWord)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void removeUser(String userName, String passWord) {
+        if (checkFormat(userName) && checkFormat(passWord)) {
+            Boolean hasMatched = false;
+            for (User user : users) {
+                if (user.getUserName().equals(userName)) {
+                    hasMatched = true;
+                    if (checkPassWord(userName, passWord)) {
+                        users.remove(user);
+                        System.out.println("user successfully removed.");
+                        break;
+                    } else {
+                        System.out.println("password incorrect.");
+                    }
+                }
+            }
+            if (!(hasMatched)) {
+                System.out.println("no user found with this username.");
+            }
+        }
+    }
+
+
+
+
+}

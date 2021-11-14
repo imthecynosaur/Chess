@@ -7,6 +7,9 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 
-.*iml
-.*xml
-.*class
+.iml
+.xml
+.class
+/misc.xml
+/modules.xml
+/vcs.xml
