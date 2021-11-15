@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class User {
@@ -13,11 +14,7 @@ public class User {
         this.userName = userName;
         this.passWord = passWord;
         this.score = 0;
-        results = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            results.add(0);
-        }
-
+        results = new ArrayList<>(Arrays.asList(0, 0, 0));
     }
 
     public String getUserName() {
