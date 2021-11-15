@@ -10,13 +10,12 @@ public class Menu {
     protected Menu parentMenu;
     protected Menu subMenu;
     protected Scanner scanner;
-    protected Controller controller;
+    protected static Controller controller = new Controller();
 
     Menu(String name, Menu parentMenu){
         this.name = name;
         this.parentMenu = parentMenu;
         scanner = new Scanner(System.in);
-        controller = new Controller();
     }
 
     public void setSubMenu(Menu subMenu) {
