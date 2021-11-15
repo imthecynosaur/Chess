@@ -1,8 +1,6 @@
 package Menus;
 
 
-import java.util.HashMap;
-
 public class MainMenu extends Menu {
     MainMenu(Menu parentMenu) {
         super("Main Menu", parentMenu);
@@ -31,13 +29,14 @@ public class MainMenu extends Menu {
 
 
         } else if (input.trim().toLowerCase().startsWith("list")){
-            controller.getUserlist();
+            controller.getUserslist();
 
 
         }else if (input.trim().toLowerCase().startsWith("score")){
-//            for (User user : controller.getUsers()) {
-//                System.out.println("");
-//            }
+            controller.getScore();
+
+        } else {
+            System.out.println("Invalid command!");
         }
         this.execute();
     }

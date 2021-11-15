@@ -1,8 +1,6 @@
 package Menus;
 
 
-import java.util.Scanner;
-
 public class Login extends Menu {
 
 
@@ -43,7 +41,7 @@ public class Login extends Menu {
 
 
         } else if (input.trim().toLowerCase().startsWith("list")) {
-            controller.getUserlist();
+            controller.getUserslist();
 
 
         } else if (input.trim().toLowerCase().startsWith("remove")){
@@ -57,8 +55,9 @@ public class Login extends Menu {
 
         } else if (input.trim().toLowerCase().startsWith("login")){
             try {
-                controller.login(input.split("\\s+")[1], input.split("\\s+")[2]);
-                this.subMenu.execute();
+                if(controller.login(input.split("\\s+")[1], input.split("\\s+")[2])){
+                    this.subMenu.execute();
+                }
             } catch(Exception e) {
                 System.out.println("missing an argument");
                 this.execute();

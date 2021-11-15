@@ -18,9 +18,15 @@ public class Controller {
         return users;
     }
 
-    public void getUserlist(){
+    public void getUserslist(){
         for (User user : users) {
             System.out.println(user.getUserName());
+        }
+    }
+
+    public void getScore(){
+        for (User user : users) {
+            System.out.println(user.getUserName() + " : " + user.getScore());
         }
     }
 
@@ -58,7 +64,7 @@ public class Controller {
     public void register(String userName, String passWord){
         if (checkFormat(userName) && checkFormat(passWord)){
             if (checkForUser(userName) == null){
-                users.add(new User(userName, passWord));
+                this.users.add(new User(userName, passWord));
                 System.out.println("register successful.");
             } else {
                 System.out.println("User Already exists!");
@@ -66,13 +72,14 @@ public class Controller {
         }
     }
 
-    public void login(String userName, String passWord){
+    public Boolean login(String userName, String passWord){
         if (checkFormat(userName) && checkFormat(passWord)){
             User user = checkForUser(userName);
             if (user != null){
                 if (checkPassWord(user, passWord)){
                     setCurrentUser(user);
                     System.out.println("logged in successfully.");
+                    return true;
                 } else {
                     System.out.println("password is incorrect!");
                 }
@@ -80,6 +87,7 @@ public class Controller {
                 System.out.println("no user found with this username!");
             }
         }
+        return false;
     }
 
     public void removeUser(String userName, String passWord) {
