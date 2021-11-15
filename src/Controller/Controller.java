@@ -26,7 +26,8 @@ public class Controller {
 
     public void getScore(){
         for (User user : users) {
-            System.out.println(user.getUserName() + " : " + user.getScore());
+            System.out.println(user.getUserName() + " : " + user.getScore() + " "
+            + user.getResults().get(0) + " " + user.getResults().get(1) + " " + user.getResults().get(2) );
         }
     }
 

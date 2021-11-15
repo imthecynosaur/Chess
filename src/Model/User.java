@@ -7,16 +7,17 @@ public class User {
     private String userName;
     private String passWord;
     private int score;
-    private HashMap<String, Integer> results;
+    private ArrayList<Integer> results;
 
     public User(String userName, String passWord){
         this.userName = userName;
         this.passWord = passWord;
         this.score = 0;
-        results = new HashMap<>();
-        results.put("Wins", 0);
-        results.put("Draws", 0);
-        results.put("Losses", 0);
+        results = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            results.add(0);
+        }
+
     }
 
     public String getUserName() {
@@ -27,7 +28,7 @@ public class User {
         return passWord;
     }
 
-    public HashMap<String, Integer> getResults() {
+    public ArrayList getResults(){
         return results;
     }
 
@@ -35,15 +36,25 @@ public class User {
         return score;
     }
 
-    public void setScore() {
-        for (String result : results.keySet()) {
-            switch (result){
-                case "Wins":
-                    this.score =+ 3;
-                    break;
-                case "Draws":
-                    this.score =+ 1;
-            }
-        }
+    public int setScore() {
+        this.score = (results.get(0) * 3 + results.get(1));
+        return this.score;
     }
+
+    public void updateResults(String result){
+        switch (result){
+            case "win":
+               results.set(0, results.get(0)+1);
+               break;
+            case "draw":
+                results.set(1, results.get(1)+1);
+                break;
+            case "lost":
+                results.set(2, results.get(2)+1);
+                break;
+        }
+        setScore();
+    }
+
+
 }
