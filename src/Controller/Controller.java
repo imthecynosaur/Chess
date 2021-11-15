@@ -60,8 +60,6 @@ public class Controller {
         return null;
     }
 
-
-
     public void register(String userName, String passWord){
         if (checkFormat(userName) && checkFormat(passWord)){
             if (checkForUser(userName) == null){
@@ -105,6 +103,31 @@ public class Controller {
                 System.out.println("no user found with this username.");
             }
         }
+    }
+
+
+    public void updateResults(User user, String result){
+        user.updateResults(result);
+    }
+
+    public Boolean newGame(String userName, int limit){
+        if (checkFormat(userName)){
+            if (limit >= 0) {
+                User user = checkForUser(userName);
+                if (user != null) {
+                    if (!(user.equals(currentUser))){
+                        return true;
+                    } else {
+                        System.out.println("you must choose another player to start a game.");
+                    }
+                } else {
+                    System.out.println("no user found with this user name.");
+                }
+            } else {
+                System.out.println("limit should be zero or more.");
+            }
+        }
+        return false;
     }
 
 
