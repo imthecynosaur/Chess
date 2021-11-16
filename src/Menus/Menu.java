@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Menu {
-    private String name;
+    private final String name;
     protected Menu parentMenu;
     protected Menu subMenu;
     protected Scanner scanner;

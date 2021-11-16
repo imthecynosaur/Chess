@@ -5,6 +5,7 @@ package Menus;
 public class MainMenu extends Menu {
     MainMenu(Menu parentMenu) {
         super("Main Menu", parentMenu);
+        this.setSubMenu(new GameMenu(this));
 
     }
 
@@ -41,6 +42,7 @@ public class MainMenu extends Menu {
             try {
                 if (controller.newGame(input.split("\\s+")[1], Integer.parseInt(input.split("\\s+")[2]))) {
                     System.out.println("game started");
+                    this.subMenu.execute();
                 }
             } catch(Exception e) {
                 System.out.println("missing an argument");
