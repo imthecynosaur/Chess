@@ -16,6 +16,8 @@ public class GameMenu extends Menu {
         System.out.println("help");
         System.out.println("forfeit");
         System.out.println("show board");
+        System.out.println("end turn");
+        System.out.println("move [x],[y]");
 
     }
 
@@ -33,6 +35,14 @@ public class GameMenu extends Menu {
 
          } else if (input.trim().toLowerCase().startsWith("forfeit")) {
              this.parentMenu.execute();
+
+
+         } else if (input.trim().toLowerCase().startsWith("end")){
+             gameController.changeTurn();
+
+
+         } else if (input.trim().toLowerCase().startsWith("move")){
+             int commaPosition = input.con
          }
 
 

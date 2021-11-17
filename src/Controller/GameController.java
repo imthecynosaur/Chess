@@ -3,10 +3,12 @@ package Controller;
 import Model.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameController {
     private ArrayList<Piece> pieces;
     private Boolean isWhiteTurn;
+    private Piece selectedPiece;
 
     public GameController(){
         pieces = new ArrayList<>();
@@ -39,28 +41,52 @@ public class GameController {
         isWhiteTurn = true;
     }
 
-    public Piece selectPiece(int x, int y){
+    public Piece checkForPiece(int x, int y){
         for (Piece piece : pieces) {
-            if (piece.getX() == x){
-                if (piece.getY() == y){
-                    if (piece.getColor() == 'w' && isWhiteTurn){
-                        System.out.println("piece selected.");
-                        return piece;
-                    } else if (piece.getColor() == 'b' && !isWhiteTurn){
-                        System.out.println("piece selected.");
-                        return piece;
-                    } else {
-                        System.out.println("piece couldn't be selected.");
-                        return null;
-                    }
+            if (piece.getX() == x) {
+                if (piece.getY() == y) {
+                    return piece;
                 }
             }
         }
-        System.out.println("there were no piece with the given position.");
         return null;
     }
 
+    public Boolean isEnemy(Piece piece){
+        if (this.selectedPiece.getColor() != piece.getColor()){
+            return true;
+        } else if (this.selectedPiece.getColor() == piece.getColor()) {
+            return false;
+        } else {
+            System.out.println("something's wrong with enemycheck process!");
+            return null;
+        }
+    }
+
+    public Piece selectPiece(int x, int y) {
+        Piece piece = checkForPiece(x, y);
+        if (piece != null){
+            if (isWhiteTurn && (piece.getColor() == 'w')){
+                selectedPiece = piece;
+                System.out.println("piece selected.");
+                return piece;
+            } else if (!isWhiteTurn && (piece.getColor() == 'b')){
+                selectedPiece = piece;
+                System.out.println("piece selected.");
+                return piece;
+            }
+        }
+        System.out.println("no piece found with the given positions");
+        return null;
+    }
+
+    public void unselectPiece(){
+        System.out.println("deselected.");
+        selectedPiece = null;
+    }
+
     public void changeTurn(){
+        System.out.println("turn finished.");
         isWhiteTurn = !isWhiteTurn;
     }
 
@@ -84,6 +110,19 @@ public class GameController {
                     }
                 }
                 pieceFound = false;
+            }
+        }
+    }
+
+    public void move(int x, int y){
+        HashMap<Integer, Integer> possibleMoves = new HashMap<>();
+        possibleMoves = selectedPiece.possibleMoves();
+        for (Integer i : possibleMoves.keySet()) {
+            if (i == x){
+                if (possibleMoves.get(i) == y){
+                    selectedPiece.setX(x);
+                    selectedPiece.setY(y);
+                }
             }
         }
     }

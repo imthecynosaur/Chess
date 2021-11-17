@@ -2,7 +2,7 @@ package Model;
 
 import java.util.HashMap;
 
-public class Piece {
+public abstract class Piece {
     private char name;
     private char color;
     private int x;
@@ -31,4 +31,14 @@ public class Piece {
     public int getY() {
         return y;
     }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public abstract HashMap<Integer, Integer> possibleMoves();
 }
