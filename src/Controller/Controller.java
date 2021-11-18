@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 public class Controller {
     private ArrayList<User> users;
     private User currentUser;
+    protected static User whitePlayer;
+    protected static User blackPlayer;
 
     public Controller(){
         users = new ArrayList<>();
@@ -31,8 +33,8 @@ public class Controller {
         }
     }
 
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
     }
 
     public Boolean checkFormat(String input){
@@ -77,6 +79,7 @@ public class Controller {
             if (user != null){
                 if (checkPassWord(user, passWord)){
                     setCurrentUser(user);
+                    whitePlayer = user;
                     System.out.println("logged in successfully.");
                     return true;
                 } else {
@@ -116,6 +119,7 @@ public class Controller {
                 User user = checkForUser(userName);
                 if (user != null) {
                     if (!(user.equals(currentUser))){
+                        blackPlayer = user;
                         return true;
                     } else {
                         System.out.println("you must choose another player to start a game.");

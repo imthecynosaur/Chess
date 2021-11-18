@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Pawn extends Piece {
 
-    private GameController gameController;
+    private final GameController gameController;
     public Pawn(char color, int x, int y) {
         super('P', color, x, y);
         gameController = new GameController();

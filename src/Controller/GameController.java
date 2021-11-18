@@ -1,4 +1,5 @@
 package Controller;
+import Controller.Controller;
 
 import Model.*;
 
@@ -6,12 +7,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GameController {
-    private ArrayList<Piece> pieces;
-    private Boolean isWhiteTurn;
-    private Piece selectedPiece;
+    private static final ArrayList<Piece> pieces = new ArrayList<>();
+    private static Boolean isWhiteTurn = true;
+    private static Piece selectedPiece;
+    private Controller controller = new Controller();
 
     public GameController(){
-        pieces = new ArrayList<>();
+    }
+
+    public void showTurn(){
+        if(isWhiteTurn){
+            System.out.println("its white's turn now.");
+        } else {
+            System.out.println("its black's turn now.");
+        }
+    }
+
+    public void setPieces() {
         for (int i = 1; i <= 8 ; i++) {
             pieces.add(new Pawn('w', i, 2));
         }
@@ -37,8 +49,17 @@ public class GameController {
         pieces.add(new Queen('b', 4, 8));
         pieces.add(new King('b', 5, 8));
 
+    }
 
-        isWhiteTurn = true;
+    public void forfeit(){
+        if (isWhiteTurn){
+            controller.updateResults(Controller.whitePlayer, "lost");
+            controller.updateResults(Controller.blackPlayer, "win");
+        } else {
+            controller.updateResults(Controller.whitePlayer, "win");
+            controller.updateResults(Controller.blackPlayer, "lost");
+        }
+        pieces.clear();
     }
 
     public Piece checkForPiece(int x, int y){
@@ -53,9 +74,9 @@ public class GameController {
     }
 
     public Boolean isEnemy(Piece piece){
-        if (this.selectedPiece.getColor() != piece.getColor()){
+        if (selectedPiece.getColor() != piece.getColor()){
             return true;
-        } else if (this.selectedPiece.getColor() == piece.getColor()) {
+        } else if (selectedPiece.getColor() == piece.getColor()) {
             return false;
         } else {
             System.out.println("something's wrong with enemycheck process!");
@@ -115,15 +136,20 @@ public class GameController {
     }
 
     public void move(int x, int y){
-        HashMap<Integer, Integer> possibleMoves = new HashMap<>();
-        possibleMoves = selectedPiece.possibleMoves();
-        for (Integer i : possibleMoves.keySet()) {
-            if (i == x){
-                if (possibleMoves.get(i) == y){
-                    selectedPiece.setX(x);
-                    selectedPiece.setY(y);
+        if (selectedPiece != null) {
+            HashMap<Integer, Integer> possibleMoves;
+            possibleMoves = selectedPiece.possibleMoves();
+            for (Integer i : possibleMoves.keySet()) {
+                if (i == x){
+                    if (possibleMoves.get(i) == y){
+                        selectedPiece.setX(x);
+                        selectedPiece.setY(y);
+                        unselectPiece();
+                        changeTurn();
+                    }
                 }
             }
         }
+
     }
 }

@@ -1,12 +1,9 @@
 package Menus;
 
-import Controller.GameController;
 
 public class GameMenu extends Menu {
-    GameController gameController;
     GameMenu(Menu parentMenu) {
         super("Game Menu", parentMenu);
-        gameController = new GameController();
     }
 
 
@@ -16,8 +13,11 @@ public class GameMenu extends Menu {
         System.out.println("help");
         System.out.println("forfeit");
         System.out.println("show board");
+        System.out.println("[show] turn");
         System.out.println("end turn");
-        System.out.println("move [x],[y]");
+        System.out.println("select [x] [y]");
+        System.out.println("unselect");
+        System.out.println("move [x] [y]");
 
     }
 
@@ -33,7 +33,13 @@ public class GameMenu extends Menu {
              gameController.showBoard();
 
 
+         } else if (input.trim().toLowerCase().startsWith("turn")){
+             gameController.showTurn();
+
+
          } else if (input.trim().toLowerCase().startsWith("forfeit")) {
+
+             gameController.forfeit();
              this.parentMenu.execute();
 
 
@@ -41,8 +47,34 @@ public class GameMenu extends Menu {
              gameController.changeTurn();
 
 
+         } else if (input.trim().toLowerCase().startsWith("select")){
+             try {
+                 gameController.selectPiece(Integer.parseInt(input.split("\\s+")[1]), Integer.parseInt(input.split("\\s+")[2]));
+             } catch (Exception e){
+                 System.out.println("missing an argument");
+                 this.execute();
+             }
+
+
+
+         } else if (input.trim().toLowerCase().startsWith("unselect")){
+             try {
+                 gameController.unselectPiece();
+             } catch (Exception e){
+                 System.out.println("missing an argument");
+                 this.execute();
+             }
+
+
          } else if (input.trim().toLowerCase().startsWith("move")){
-             int commaPosition = input.con
+             try {
+                 gameController.move(Integer.parseInt(input.split("\\s+")[1]), Integer.parseInt(input.split("\\s+")[2]));
+             } catch (Exception e){
+                 System.out.println("missing an argument");
+                 this.execute();
+             }
+         } else {
+             System.out.println("invalid command");
          }
 
 
