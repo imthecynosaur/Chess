@@ -138,6 +138,15 @@ public class GameController {
         }
     }
 
+    public void checkForCollision(){
+        for (Piece piece : pieces) {
+            if (selectedPiece.getColor() != piece.getColor() && selectedPiece.getX() == piece.getX() && selectedPiece.getY() == piece.getY()){
+                pieces.remove(piece);
+                break;
+            }
+        }
+    }
+
     public void move(int x, int y){
         if (selectedPiece != null) {
             ArrayList<ArrayList<Integer>> possibleMoves;
@@ -147,9 +156,10 @@ public class GameController {
                 if (possibleMove.get(0) == x && possibleMove.get(1) == y) {
                     selectedPiece.setX(x);
                     selectedPiece.setY(y);
+                    checkForCollision();
                     unselectPiece();
-                    changeTurn();
                     isMoveValid = true;
+                    changeTurn();
                     break;
                 }
 
@@ -164,8 +174,13 @@ public class GameController {
     }
 
     public void showPossibleMoves(){
-        ArrayList<ArrayList<Integer>> possibleMoves;
-        possibleMoves = selectedPiece.possibleMoves();
-        System.out.println(possibleMoves);
+        if (selectedPiece != null){
+            ArrayList<ArrayList<Integer>> possibleMoves;
+            possibleMoves = selectedPiece.possibleMoves();
+            System.out.println(possibleMoves);
+        } else {
+            System.out.println("you have to select a piece first.");
+        }
+
     }
 }

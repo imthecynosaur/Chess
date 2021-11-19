@@ -14,9 +14,13 @@ public class GameMenu extends Menu {
         System.out.println("forfeit");
         System.out.println("show board");
         System.out.println("[show] turn");
+        /*
+        * end turn is not implemented
+        */
         System.out.println("end turn");
         System.out.println("select [x] [y]");
         System.out.println("unselect");
+        System.out.println("possible moves");
         System.out.println("move [x] [y]");
 
     }
