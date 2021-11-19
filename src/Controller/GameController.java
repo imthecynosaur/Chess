@@ -74,10 +74,14 @@ public class GameController {
     }
 
     public Boolean isEnemy(Piece piece){
-        if (selectedPiece.getColor() != piece.getColor()){
+        if (isWhiteTurn && piece.getColor()=='b'){
             return true;
-        } else if (selectedPiece.getColor() == piece.getColor()) {
+        } else if (isWhiteTurn && piece.getColor()=='w') {
             return false;
+        } else if (!isWhiteTurn && piece.getColor()=='b') {
+            return false;
+        } else if (!isWhiteTurn && piece.getColor()=='w') {
+            return true;
         } else {
             System.out.println("something's wrong with enemycheck process!");
             return null;
@@ -87,14 +91,13 @@ public class GameController {
     public Piece selectPiece(int x, int y) {
         Piece piece = checkForPiece(x, y);
         if (piece != null){
-            if (isWhiteTurn && (piece.getColor() == 'w')){
+            if (!isEnemy(piece)){
                 selectedPiece = piece;
                 System.out.println("piece selected.");
                 return piece;
-            } else if (!isWhiteTurn && (piece.getColor() == 'b')){
-                selectedPiece = piece;
-                System.out.println("piece selected.");
-                return piece;
+            } else {
+                System.out.println("the chosen piece belongs to enemy.");
+                return null;
             }
         }
         System.out.println("no piece found with the given positions");

@@ -27,12 +27,12 @@ public class Pawn extends Piece {
             }
 
             piece = gameController.checkForPiece(this.getX()+1, this.getY()+1);
-            if (piece != null && piece.getColor() != this.getColor()){
+            if (piece != null && gameController.isEnemy(piece)){
                 possibleMoves.put(this.getX()+1, this.getY()+1);
             }
 
             piece = gameController.checkForPiece(this.getX()-1, this.getY()+1);
-            if (piece != null && piece.getColor() != this.getColor()){
+            if (piece != null && gameController.isEnemy(piece)){
                 possibleMoves.put(this.getX()-1, this.getY()+1);
             }
         } else if (this.getColor() == 'b'){
@@ -45,12 +45,12 @@ public class Pawn extends Piece {
             }
 
             piece = gameController.checkForPiece(this.getX()+1, this.getY()-1);
-            if (piece != null && piece.getColor() != this.getColor()){
+            if (piece != null && gameController.isEnemy(piece)){
                 possibleMoves.put(this.getX()+1, this.getY()-1);
             }
 
             piece = gameController.checkForPiece(this.getX()-1, this.getY()-1);
-            if (piece != null && piece.getColor() != this.getColor()){
+            if (piece != null && gameController.isEnemy(piece)){
                 possibleMoves.put(this.getX()-1, this.getY()-1);
             }
         }
