@@ -73,6 +73,12 @@ public class GameMenu extends Menu {
                  System.out.println("missing an argument");
                  this.execute();
              }
+
+
+         } else if(input.trim().toLowerCase().startsWith("possible")){
+             gameController.showPossibleMoves();
+
+
          } else {
              System.out.println("invalid command");
          }

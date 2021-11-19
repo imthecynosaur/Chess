@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Bishop extends Piece {
     public Bishop(char color, int x, int y) {
@@ -12,7 +12,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public HashMap<Integer, Integer> possibleMoves() {
+    public ArrayList<ArrayList<Integer>> possibleMoves() {
         return null;
     }
 }

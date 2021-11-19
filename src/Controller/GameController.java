@@ -140,19 +140,32 @@ public class GameController {
 
     public void move(int x, int y){
         if (selectedPiece != null) {
-            HashMap<Integer, Integer> possibleMoves;
+            ArrayList<ArrayList<Integer>> possibleMoves;
             possibleMoves = selectedPiece.possibleMoves();
-            for (Integer i : possibleMoves.keySet()) {
-                if (i == x){
-                    if (possibleMoves.get(i) == y){
-                        selectedPiece.setX(x);
-                        selectedPiece.setY(y);
-                        unselectPiece();
-                        changeTurn();
-                    }
+            boolean isMoveValid = false;
+            for (ArrayList<Integer> possibleMove : possibleMoves) {
+                if (possibleMove.get(0) == x && possibleMove.get(1) == y) {
+                    selectedPiece.setX(x);
+                    selectedPiece.setY(y);
+                    unselectPiece();
+                    changeTurn();
+                    isMoveValid = true;
+                    break;
                 }
+
             }
+            if (!isMoveValid) {
+                System.out.println("you can't put your piece there.");
+            }
+        } else{
+            System.out.println("you have to select a piece first.");
         }
 
+    }
+
+    public void showPossibleMoves(){
+        ArrayList<ArrayList<Integer>> possibleMoves;
+        possibleMoves = selectedPiece.possibleMoves();
+        System.out.println(possibleMoves);
     }
 }

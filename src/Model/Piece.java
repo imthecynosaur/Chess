@@ -1,6 +1,7 @@
 package Model;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class Piece {
     private char name;
@@ -40,5 +41,5 @@ public abstract class Piece {
         this.y = y;
     }
 
-    public abstract HashMap<Integer, Integer> possibleMoves();
+    public abstract ArrayList<ArrayList<Integer>> possibleMoves();
 }
