@@ -1,6 +1,8 @@
 package Menus;
 
 
+import Controller.GameController;
+
 public class GameMenu extends Menu {
     GameMenu(Menu parentMenu) {
         super("Game Menu", parentMenu);
@@ -28,67 +30,68 @@ public class GameMenu extends Menu {
     @Override
     public void execute() {
         String input = scanner.nextLine();
-
-         if (input.trim().toLowerCase().startsWith("help")) {
+        if (input.trim().toLowerCase().startsWith("help")) {
             this.show();
 
 
-         } else if (input.trim().toLowerCase().startsWith("show")){
-             gameController.showBoard();
+        } else if (input.trim().toLowerCase().startsWith("show")){
+            gameController.showBoard();
 
 
-         } else if (input.trim().toLowerCase().startsWith("turn")){
-             gameController.showTurn();
+        } else if (input.trim().toLowerCase().startsWith("turn")){
+            gameController.showTurn();
 
 
-         } else if (input.trim().toLowerCase().startsWith("forfeit")) {
-
-             gameController.forfeit();
-             this.parentMenu.execute();
-
-
-         } else if (input.trim().toLowerCase().startsWith("end")){
-             gameController.changeTurn();
+        } else if (input.trim().toLowerCase().startsWith("forfeit")) {
+            gameController.forfeit();
+            this.parentMenu.execute();
 
 
-         } else if (input.trim().toLowerCase().startsWith("select")){
-             try {
-                 gameController.selectPiece(Integer.parseInt(input.split("\\s+")[1]), Integer.parseInt(input.split("\\s+")[2]));
-             } catch (Exception e){
-                 System.out.println("missing an argument");
-                 this.execute();
-             }
+        } else if (input.trim().toLowerCase().startsWith("end")){
+            gameController.changeTurn();
+
+
+        } else if (input.trim().toLowerCase().startsWith("select")){
+            try {
+                gameController.selectPiece(Integer.parseInt(input.split("\\s+")[1]), Integer.parseInt(input.split("\\s+")[2]));
+            } catch (Exception e){
+                System.out.println("missing an argument");
+                this.execute();
+            }
 
 
 
-         } else if (input.trim().toLowerCase().startsWith("unselect")){
-             try {
-                 gameController.unselectPiece();
-             } catch (Exception e){
-                 System.out.println("missing an argument");
-                 this.execute();
-             }
+        } else if (input.trim().toLowerCase().startsWith("unselect")){
+            try {
+                gameController.unselectPiece();
+            } catch (Exception e){
+                System.out.println("missing an argument");
+                this.execute();
+            }
 
 
-         } else if (input.trim().toLowerCase().startsWith("move")){
-             try {
-                 gameController.move(Integer.parseInt(input.split("\\s+")[1]), Integer.parseInt(input.split("\\s+")[2]));
-             } catch (Exception e){
-                 System.out.println("missing an argument");
-                 this.execute();
-             }
+        } else if (input.trim().toLowerCase().startsWith("move")){
+            try {
+                gameController.move(Integer.parseInt(input.split("\\s+")[1]), Integer.parseInt(input.split("\\s+")[2]));
+                if(!gameController.getIsKingAlive()){
+                    System.out.println("game ended.");
+                    this.parentMenu.execute();
+                }
+            } catch (Exception e){
+                System.out.println("missing an argument");
+                this.execute();
+            }
 
 
-         } else if(input.trim().toLowerCase().startsWith("possible")){
-             gameController.showPossibleMoves();
+        } else if(input.trim().toLowerCase().startsWith("possible")){
+            gameController.showPossibleMoves();
 
 
-         } else {
-             System.out.println("invalid command");
-         }
+        } else {
+            System.out.println("invalid command");
+        }
 
 
-         this.execute();
+        this.execute();
     }
-
 }

@@ -1,15 +1,14 @@
 package Controller;
-import Controller.Controller;
 
 import Model.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GameController {
     private static final ArrayList<Piece> pieces = new ArrayList<>();
     private static Boolean isWhiteTurn = true;
     private static Piece selectedPiece;
+    private static Boolean isKingAlive = true;
     private Controller controller = new Controller();
 
     public GameController(){
@@ -50,6 +49,16 @@ public class GameController {
         pieces.add(new King('b', 5, 8));
 
     }
+
+    public Boolean getIsKingAlive(){
+        if(!isKingAlive){
+            forfeit();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     public void forfeit(){
         if (isWhiteTurn){
@@ -138,9 +147,13 @@ public class GameController {
         }
     }
 
-    public void checkForCollision(){
+    public void collision(){
         for (Piece piece : pieces) {
             if (selectedPiece.getColor() != piece.getColor() && selectedPiece.getX() == piece.getX() && selectedPiece.getY() == piece.getY()){
+                if (piece.getName() == 'k'){
+                    isKingAlive = false;
+
+                }
                 pieces.remove(piece);
                 break;
             }
@@ -156,7 +169,7 @@ public class GameController {
                 if (possibleMove.get(0) == x && possibleMove.get(1) == y) {
                     selectedPiece.setX(x);
                     selectedPiece.setY(y);
-                    checkForCollision();
+                    collision();
                     unselectPiece();
                     isMoveValid = true;
                     changeTurn();
