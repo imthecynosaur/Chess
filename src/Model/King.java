@@ -8,9 +8,6 @@ public class King extends Piece {
         super('K', color, x, y);
     }
 
-    public void possibleMoves(int x, int y){
-
-    }
 
     @Override
     public ArrayList<ArrayList<Integer>> possibleMoves() {

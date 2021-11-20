@@ -8,9 +8,6 @@ public class Bishop extends Piece {
         super('B', color, x, y);
     }
 
-    public void possibleMoves(int x, int y){
-
-    }
 
     @Override
     public ArrayList<ArrayList<Integer>> possibleMoves() {
