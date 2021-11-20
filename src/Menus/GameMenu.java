@@ -73,7 +73,8 @@ public class GameMenu extends Menu {
         } else if (input.trim().toLowerCase().startsWith("move")){
             try {
                 gameController.move(Integer.parseInt(input.split("\\s+")[1]), Integer.parseInt(input.split("\\s+")[2]));
-                if(!gameController.getIsKingAlive()){
+//                if(!gameController.getIsKingAlive()){
+                if(gameController.checkForWinner()){
                     System.out.println("game ended.");
                     this.parentMenu.execute();
                 }
@@ -85,6 +86,10 @@ public class GameMenu extends Menu {
 
         } else if(input.trim().toLowerCase().startsWith("possible")){
             gameController.showPossibleMoves();
+
+
+        } else if(input.trim().toLowerCase().startsWith("removed")){
+            gameController.showRemovedPieces();
 
 
         } else {

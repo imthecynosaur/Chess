@@ -6,9 +6,10 @@ import java.util.ArrayList;
 
 public class GameController {
     private static final ArrayList<Piece> pieces = new ArrayList<>();
+    private final ArrayList<Piece> removedPieces = new ArrayList<>();
     private static Boolean isWhiteTurn = true;
     private static Piece selectedPiece;
-    private static Boolean isKingAlive = true;
+//    private static Boolean isKingAlive = true;
     private Controller controller = new Controller();
 
     public GameController(){
@@ -50,13 +51,32 @@ public class GameController {
 
     }
 
-    public Boolean getIsKingAlive(){
+    /*public Boolean getIsKingAlive(){
         if(!isKingAlive){
             forfeit();
             return false;
         } else {
             return true;
         }
+    }*/
+
+    public Boolean checkForWinner(){
+        for (Piece removedPiece : removedPieces) {
+            if (removedPiece.getName() == 'K'){
+                if(removedPiece.getColor() == 'b'){
+                    System.out.println("The White player has won!");
+                    controller.updateResults(Controller.whitePlayer, "win");
+                    controller.updateResults(Controller.blackPlayer, "lost");
+                } else {
+                    System.out.println("The Black player has won!");
+                    controller.updateResults(Controller.whitePlayer, "lost");
+                    controller.updateResults(Controller.blackPlayer, "win");
+                }
+                pieces.clear();
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -150,15 +170,13 @@ public class GameController {
     public void collision(){
         for (Piece piece : pieces) {
             if (selectedPiece.getColor() != piece.getColor() && selectedPiece.getX() == piece.getX() && selectedPiece.getY() == piece.getY()){
-                if (piece.getName() == 'k'){
-                    isKingAlive = false;
-
-                }
+                removedPieces.add(piece);
                 pieces.remove(piece);
                 break;
             }
         }
     }
+
 
     public void move(int x, int y){
         if (selectedPiece != null) {
@@ -195,5 +213,11 @@ public class GameController {
             System.out.println("you have to select a piece first.");
         }
 
+    }
+
+    public void showRemovedPieces(){
+        for (Piece removedPiece : removedPieces) {
+            System.out.print("" + removedPiece.getName() + removedPiece.getColor() + " \n");
+        }
     }
 }
