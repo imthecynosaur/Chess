@@ -1,6 +1,6 @@
 package Model;
 
-import Controller.GameController;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,10 +8,9 @@ import java.util.Arrays;
 
 public class Pawn extends Piece {
 
-    private final GameController gameController;
+
     public Pawn(char color, int x, int y) {
         super('P', color, x, y);
-        gameController = new GameController();
     }
 
     @Override

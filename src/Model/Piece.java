@@ -1,5 +1,7 @@
 package Model;
 
+import Controller.GameController;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -8,6 +10,7 @@ public abstract class Piece {
     private char color;
     private int x;
     private int y;
+    protected static GameController gameController = new GameController();
 
     public Piece(char name, char color, int x, int y){
         this.name = name;
