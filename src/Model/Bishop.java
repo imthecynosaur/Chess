@@ -17,7 +17,7 @@ public class Bishop extends Piece {
         ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
         Piece piece;
         for (int i = this.getX()+1; i <= 8 ; i++) {
-            int posY = this.getY()+this.getX()-i;
+            int posY = this.getY() - (i - this.getX());
             if (posY >= 1){
                 piece = gameController.checkForPiece(i, posY);
                 if(piece == null){
@@ -32,7 +32,7 @@ public class Bishop extends Piece {
         }
 
         for (int i = this.getX()-1; i >= 1 ; i--) {
-            int posY = this.getY()- (this.getX()-i);
+            int posY = this.getY() - (this.getX()-i);
             if (posY >= 1){
                 piece = gameController.checkForPiece(i, posY);
                 if(piece == null){
@@ -62,7 +62,7 @@ public class Bishop extends Piece {
         }
 
         for (int i = this.getX()+1; i <= 8 ; i++) {
-            int posY = this.getY()+ (i - this.getX());
+            int posY = this.getY() + (i - this.getX());
             if (posY <= 8){
                 piece = gameController.checkForPiece(i, posY);
                 if(piece == null){
